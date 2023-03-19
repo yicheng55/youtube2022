@@ -31,8 +31,10 @@ function App() {
             </Route>
             <Route path="products">
               console.log("products");
+              {/* <Route index element={<Products />} />
+              <Route path=":productId" element={<Products />} /> */}
               <Route index element={<List />} />
-              <Route path=":productId" element={<Products />} />
+              <Route path=":productId" element={<Single />} />
               <Route
                 path="new"
                 element={<New inputs={productInputs} title="Add New Product" />}
