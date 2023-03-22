@@ -20,59 +20,59 @@ function Products_test() {
   const [newDepartment, setNewDepartment] = useState("");
   const [newAddress, setNewAddress] = useState("");
 
-  console.log( __filename );
+  console.log(__filename);
   useEffect(() => {
     let url = "http://localhost:3001/catalog/location";
     axios.get(url)
-    .then((response) => {
-      const { data } = response;
-      // console.log(data.data);
-      let resoult = data.data.map(function(list, index, array){
-        // console.log(list);
-        return list;
-        // 依據UI需要轉換欄位名稱
-        // return {id: list.ID, name: list.NAME};
+      .then((response) => {
+        const { data } = response;
+        // console.log(data.data);
+        let resoult = data.data.map(function (list, index, array) {
+          // console.log(list);
+          return list;
+          // 依據UI需要轉換欄位名稱
+          // return {id: list.ID, name: list.NAME};
+        });
+        console.log(resoult);
+        setLocations(resoult);
+      })
+      .catch((error) => {
+        console.error("Error", error);
       });
-      console.log(resoult);
-      setLocations(resoult);
-    })
-    .catch((error) => {
-      console.error("Error", error);
-    });
 
     // axios.get("http://localhost:3001/catalog/transaction")
     url = "http://localhost:3001/catalog/transaction";
     axios.get(url)
-    .then((response) => {
-      const { data } = response;
-      // console.log(data.data);
-      let resoult = data.data.map(function(list, index, array){
-        // console.log(list);
-        return list;
-        // 依據UI需要轉換欄位名稱
-        // return {id: list.ID, name: list.USER_ID, location: list.LOCATION_ID, type: list.TYPE};
+      .then((response) => {
+        const { data } = response;
+        // console.log(data.data);
+        let resoult = data.data.map(function (list, index, array) {
+          // console.log(list);
+          return list;
+          // 依據UI需要轉換欄位名稱
+          // return {id: list.ID, name: list.USER_ID, location: list.LOCATION_ID, type: list.TYPE};
+        });
+        console.log(resoult);
+        setEmployees(resoult);
+      })
+      .catch((error) => {
+        console.error("Error", error);
       });
-      console.log(resoult);
-      setEmployees(resoult);
-    })
-    .catch((error) => {
-      console.error("Error", error);
-    });
 
   }, []);
 
   const addEmployee = () => {
 
     const newParams = {
-      USER_ID : newName.trim(),
-      ITEM_ID : newName.trim(),
-      TYPE    : newName.trim(),
-      QUANTITY : newName.trim(),
-      TAG_ID : newName.trim(),
-      LOCATION_ID : newDepartment,
-      DEVICE_ID : newName.trim(),
-      PHYSICAL_PORT : newName.trim(),
-      COMMENT : newAddress.trim(),
+      USER_ID: newName.trim(),
+      ITEM_ID: newName.trim(),
+      TYPE: newName.trim(),
+      QUANTITY: newName.trim(),
+      TAG_ID: newName.trim(),
+      LOCATION_ID: newDepartment,
+      DEVICE_ID: newName.trim(),
+      PHYSICAL_PORT: newName.trim(),
+      COMMENT: newAddress.trim(),
     }
 
     if (newParams) {
@@ -87,17 +87,17 @@ function Products_test() {
 
           // 讀取新增資料顯示於UI
           axios
-          .get(`http://localhost:3001/catalog/transaction/${data.data[0].insertId}`, newParams)
-          .then((response) => {
-            const { data } = response;
-            console.log(response.data);
-            console.log(data.data);
-            // console.log(data.msg);
-            setEmployees([...employees, data.data[0]]);
-            setNewName("");
-            setNewAddress("");
-            setNewDepartment("");
-          });
+            .get(`http://localhost:3001/catalog/transaction/${data.data[0].insertId}`, newParams)
+            .then((response) => {
+              const { data } = response;
+              console.log(response.data);
+              console.log(data.data);
+              // console.log(data.msg);
+              setEmployees([...employees, data.data[0]]);
+              setNewName("");
+              setNewAddress("");
+              setNewDepartment("");
+            });
 
         })
         .catch((error) => {
@@ -169,18 +169,23 @@ function Products_test() {
             const { ID, USER_ID, ITEM_ID, TYPE, LOCATION_ID, TAG_ID, QUANTITY, DEVICE_ID, PHYSICAL_PORT, COMMENT } = employee;
             // console.log(employee);
             // 儲位代號id轉為儲位名稱顯示.
-            let Location = locations.filter(function(elem, index, arr) {
+            {/* let Location = locations.filter(function(elem, index, arr) {
               return elem.ID === LOCATION_ID;
             });
-            // console.log(location);
-            // console.log(Location);
+            console.log(Location); */}
+
+            {/* console.log('found:'); */ }
+            const found = locations.find(elem => elem.ID === LOCATION_ID)
+            console.log(found);
+
             return (
               <tr key={ID}>
                 <td>{ID}</td>
                 <td>{USER_ID}</td>
                 <td>{ITEM_ID}</td>
                 <td>{TYPE}</td>
-                <td>{Location[0].NAME}</td>
+                {/* <td>{Location[0].NAME}</td> */}
+                <td>{found.NAME}</td>
                 <td>{TAG_ID}</td>
                 <td>{QUANTITY}</td>
                 <td>{DEVICE_ID}</td>
@@ -234,7 +239,7 @@ function Products_test() {
                   onChange={(e) => setNewDepartment(e.target.value)}
                   value={newDepartment}
                 >
-                  <option defaultValue ="none">
+                  <option defaultValue="none">
                     Select location
                   </option>
                   {locations.map((location) => {
