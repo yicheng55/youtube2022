@@ -12,6 +12,8 @@ const AppToaster = Toaster.create({
   position: Position.TOP,
 });
 
+let  urlpath = "http://192.168.248.34:3001";
+
 function Products_test() {
   const [employees, setEmployees] = useState([]);
   const [locations, setLocations] = useState([]);
@@ -20,9 +22,11 @@ function Products_test() {
   const [newDepartment, setNewDepartment] = useState("");
   const [newAddress, setNewAddress] = useState("");
 
-  console.log(__filename);
+  // console.log(__filename);
   useEffect(() => {
-    let url = "http://localhost:3001/catalog/location";
+    // let url = "http://localhost:3001/catalog/location";
+    let url = `${urlpath}/catalog/location`;
+    console.log(url);
     axios.get(url)
       .then((response) => {
         const { data } = response;
@@ -41,7 +45,9 @@ function Products_test() {
       });
 
     // axios.get("http://localhost:3001/catalog/transaction")
-    url = "http://localhost:3001/catalog/transaction";
+    // url = "http://localhost:3001/catalog/transaction";
+    url = `${urlpath}/catalog/transaction`;
+    console.log(url);
     axios.get(url)
       .then((response) => {
         const { data } = response;
