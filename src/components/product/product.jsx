@@ -12,8 +12,8 @@ const AppToaster = Toaster.create({
   position: Position.TOP,
 });
 
-let  urlpath = "http://192.168.248.34:3001";
-
+// let  urlpath = "http://192.168.248.34:3001";
+let  urlpath = "http://localhost:3001";
 function Products_test() {
   const [employees, setEmployees] = useState([]);
   const [locations, setLocations] = useState([]);
@@ -191,7 +191,8 @@ function Products_test() {
                 <td>{ITEM_ID}</td>
                 <td>{TYPE}</td>
                 {/* <td>{Location[0].NAME}</td> */}
-                <td>{found.NAME}</td>
+                {/* <td>{found.NAME}</td> */}
+                <td>{found ? found.NAME: ""}</td>
                 <td>{TAG_ID}</td>
                 <td>{QUANTITY}</td>
                 <td>{DEVICE_ID}</td>
