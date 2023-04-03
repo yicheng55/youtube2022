@@ -185,7 +185,7 @@ function Products_test() {
                 <td>{ITEM_ID}</td>
                 <td>{TYPE}</td>
                 {/* <td>{Location[0].NAME}</td> */}
-                <td>{found.NAME}</td>
+                <td>{found ? found.NAME: ""}</td>
                 <td>{TAG_ID}</td>
                 <td>{QUANTITY}</td>
                 <td>{DEVICE_ID}</td>
